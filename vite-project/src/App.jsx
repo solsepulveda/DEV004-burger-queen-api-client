@@ -1,4 +1,4 @@
-import LoginSection from './Login.jsx';
+import LoginSection from './components/Login.jsx';
 
 export default function App() {
   return (
