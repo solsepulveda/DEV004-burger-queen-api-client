@@ -6,10 +6,9 @@ export default function LoginSection() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let data = {email: userEmail, password: password};
     fetch('http://localhost:8080/login', {
       method: 'POST',
-      body: JSON.stringify(data),
+      body: JSON.stringify({email: userEmail, password: password}),
       headers:{
         'Content-Type': 'application/json'
       } 
@@ -20,7 +19,7 @@ export default function LoginSection() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className="loginForm" onSubmit={handleSubmit}>
       <input placeholder='Escribe tu correo' type='email' onChange={e => setUserEmail(e.target.value)} value={userEmail} />
       <input placeholder='Escribe tu contraseña' type='password' onChange={e => setPassword(e.target.value)} value={password} />
       <button>Iniciar Sesión</button>
