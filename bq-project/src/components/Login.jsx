@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './Login.css'
 
 export default function LoginSection() {
   const [userEmail, setUserEmail] = useState('')
@@ -19,10 +20,14 @@ export default function LoginSection() {
   }
 
   return (
+    <>
+    <section className="a"></section>
     <form className="loginForm" onSubmit={handleSubmit}>
+      <h1>Bienvenida</h1>
       <input placeholder='Escribe tu correo' type='email' onChange={e => setUserEmail(e.target.value)} value={userEmail} />
       <input placeholder='Escribe tu contraseña' type='password' onChange={e => setPassword(e.target.value)} value={password} />
       <button>Iniciar Sesión</button>
     </form>
+    </>
   );
 }
