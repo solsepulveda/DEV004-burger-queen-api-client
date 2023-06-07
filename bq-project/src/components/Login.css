@@ -10,14 +10,6 @@
   margin-bottom: -50px;
 }
 
-
-/* body {
-  
-
-  width: 100%;
-  height: 100%;
-} */
-
 input {
   border-radius: 10px;
   margin: 1%;
@@ -50,7 +42,7 @@ button {
     grid-template-rows: repeat(5, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
-    
+
     }
 
     .a {
@@ -61,8 +53,6 @@ button {
          margin-top:-100px;
          margin-right: -10px;
          /* box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.35); */
-         
-         
 
          }
 
@@ -90,3 +80,10 @@ button {
       margin-bottom:20px;
       background-color: transparent;
     }
+
+p1{
+  background-color: transparent;
+  color:red;
+  font-size:12px;
+  padding-top:-10px;
+}
