@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./Login.css";
 
-export default function LoginSection() {
+export default function Login() {
   const [userEmail, setUserEmail] = useState("");
   const [password, setPassword] = useState("");
   /* const [error, setError] = useState(''); */
@@ -24,6 +24,7 @@ export default function LoginSection() {
       setPassError("Por favor, escribe una contraseña");
       return;
     }
+    
 
 
 
