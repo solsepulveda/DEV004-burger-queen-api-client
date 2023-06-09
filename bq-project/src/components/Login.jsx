@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './Login.css'
 
-export default function LoginSection() {
+export default function Login() {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
@@ -42,9 +42,16 @@ export default function LoginSection() {
         'Content-Type': 'application/json'
       }
     })
-      .then(res => res.json())
+      //.then(res => res.json())
+      .then(res => {
+        if (res.ok) {
+          const jsonPromise = res.json()
+          jsonPromise.then(resJson => console.log(resJson))  
+        } else {
+          res.text().then(text => { throw new Error(text) }).catch(err => console.log('Error res:', err))
+        }
+      })
       .catch(err => console.log('Error:', err))
-      .then(response => setResError(response))  
   }
 
   return (

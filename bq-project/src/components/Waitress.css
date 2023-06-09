@@ -1,0 +1,51 @@
+#root {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-template-rows: auto auto auto auto auto;
+  background-color: #F3F5F6;
+  height: auto;
+  align-content: center;
+}
+
+  .nav {
+    grid-column:  1 / span 6;
+    grid-row: 1 / 2 ;
+    display: flex;
+    align-items: center;
+    background-color: black;
+    color: white;
+  }
+    .nav h1 {
+      margin: 0px 10px;
+    }
+    .nav a {
+      background-color: transparent;
+      margin: 0px 10px;
+    }
+
+  .costumer {
+    grid-column: 1 / span 4;
+    grid-row: 2 / 3;
+    display: flex;
+    align-items: center;
+  }
+
+  .buttons {
+    grid-column: 1 / span 4;
+    grid-row: 3 / 4;
+    display: flex;
+    align-content: center;
+  }
+    .buttons button {
+      margin: 0px 10px;
+    }
+
+  .products {
+    grid-column: 1 / span 4;
+    grid-row: 4 / span 6;
+  }
+
+  .orders {
+    grid-column: 4 / span 6;
+    grid-row: 2 / span 6;
+  }
