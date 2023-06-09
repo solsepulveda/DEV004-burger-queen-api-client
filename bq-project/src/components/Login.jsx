@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./Login.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [userEmail, setUserEmail] = useState("");
@@ -7,12 +8,15 @@ export default function Login() {
   /* const [error, setError] = useState(''); */
   const [emailError, setEmailError] = useState("");
   const [passError, setPassError] = useState("");
+  const navigate = useNavigate(); //se declara navigate
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!password || !userEmail) {
-      setPassError("Por favor, escribe una contraseña") || setEmailError("Por favor, escribe un email");
+      setPassError("Por favor, escribe una contraseña") ||
+        setEmailError("Por favor, escribe un email");
       return;
     }
     if (!userEmail) {
@@ -24,9 +28,6 @@ export default function Login() {
       setPassError("Por favor, escribe una contraseña");
       return;
     }
-    
-
-
 
     fetch("http://localhost:8080/login", {
       method: "POST",
@@ -35,15 +36,28 @@ export default function Login() {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => res.json())
-      .catch((error) => {
-        // Manejar el error aquí
-        console.log("Error:", error);
-        /* setError('Ocurrió un error al iniciar sesión. Por favor, intenta nuevamente.'); */
+      .then((res) => {
+        if (res.ok) {
+          const jsonPromise = res.json();
+          jsonPromise.then((resJson) => {
+            //Aquí navegamos haciendo match con el rol del user
+            if (resJson.user.role === 'waitress') {
+              navigate("/waitress");
+            } else if (resJson.user.role === 'chef') {
+              navigate("/chef");
+            }
+            console.log(resJson);
+          });
+        } else {
+          res
+            .text()
+            .then((text) => {
+              throw new Error(text);
+            })
+            .catch((err) => console.log("Error res:", err));
+        }
       })
-      .then((response) => {
-        console.log("Success:", response);
-      })
+      .catch((err) => console.log("Error:", err));
   };
 
   return (
