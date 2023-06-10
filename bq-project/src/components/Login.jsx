@@ -7,8 +7,6 @@ export default function Login() {
   const [emailError, setEmailError] = useState('');
   const [passError, setPassError] = useState('');
   const [resError, setResError] = useState('');
-  const [resErrorEmail, setResErrorEmail] = useState('');
-  const [resErrorPass, setResErrorPass] = useState('');
 
 
   const handleSubmit = (e) => {
@@ -25,15 +23,8 @@ export default function Login() {
       return;
     }
     
-    if (resError === "Cannot find user") {
-      setResErrorEmail("Usuario inválido");
-      return;
-    }
-
-    if (resError === "Incorrect password") {
-      setResErrorPass("Contraseña incorrecta");
-      return;
-    }
+    // mover if dentro del catch
+    
 
     fetch('http://localhost:8080/login', {
       method: 'POST',
@@ -48,7 +39,15 @@ export default function Login() {
           const jsonPromise = res.json()
           jsonPromise.then(resJson => console.log(resJson))  
         } else {
-          res.text().then(text => { throw new Error(text) }).catch(err => console.log('Error res:', err))
+          res.text().then(text => { throw new Error(text) })
+            .catch(err => {
+              console.log('Error res:', err)
+              if (err === 'Error: "Cannot find user"' || err === 'Error: "Incorrect password"') {
+                setResError("Correo y/o contraseña incorrecta");
+              }
+              console.log(resError);              
+            })
+            
         }
       })
       .catch(err => console.log('Error:', err))
@@ -56,9 +55,15 @@ export default function Login() {
 
   return (
     <>
-      <section className="a"></section>
+      <section className="indexImg"></section>
       <form className="loginForm" onSubmit={handleSubmit} >
         <h1>Bienvenido</h1>
+        {resError && (
+          <p1 className="error">
+            <br />
+            {resError}
+          </p1>
+        )}
         <input
           placeholder='Escribe tu correo'
           type='email'
@@ -73,12 +78,6 @@ export default function Login() {
             {emailError}
           </p1>
         )}
-        {resErrorEmail && (
-          <p1 className="error">
-            <br />
-            {resErrorEmail}
-          </p1>
-        )}
         <input
           placeholder='Escribe tu contraseña'
           type='password'
@@ -91,12 +90,6 @@ export default function Login() {
           <p1 className="error">
             <br />
             {passError}
-          </p1>
-        )}
-        {resErrorPass && (
-          <p1 className="error">
-            <br />
-            {resErrorPass}
           </p1>
         )}
         <button>Iniciar Sesión</button>

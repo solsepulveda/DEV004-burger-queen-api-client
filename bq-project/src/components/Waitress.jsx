@@ -30,7 +30,7 @@ export default function Waitress() {
               <div className="card">producto 2</div>
               <div className="card">producto 3</div>
             </div>
-            <div className="orders">ORDENES
+            <div className="orders">ORDEN
               <div className="order">orden 1</div>
               <div className="order">orden 2</div>
               <div className="order">orden 3</div>

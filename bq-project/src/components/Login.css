@@ -1,82 +1,51 @@
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500;700&display=swap');
 
-
-* {
-  font-family: 'Baloo Tammudu 2', cursive;
-  background-color: #F3F5F6;
+.indexImg {
+  grid-column: 1 / 7;
+  grid-row: 1 / 10;
+  background-image: url("https://github.com/solsepulveda/DEV004-burger-queen-api-client/blob/rama-sol/bq-project/public/burgerLogin.png?raw=true");
+  border-radius: 0 0 0 25px;
+  background-size: cover;  
+  width: 102%;
 }
 
-input {
-  border-radius: 10px;
-  margin: 1%;
-  text-align: center;
-  border-color:transparent;
-  background-color: rgb(224, 224, 224);
-  color:black;
-}
-
-button {
-  background-color: #F5A929;
-  width: 150px;
-  height: 40px;
-  box-shadow: 0px 30px 30px rgba(179, 179, 179, 0.15);
-  border-radius: 30px;
-  color: white;
-  border: none;
+.loginForm {
+  grid-column: 7 / 10;
+  grid-row: 1 / 10;
+  background-color: white;
+  border-radius: 0 25px 25px 0;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  text-align: center;
-  cursor: pointer;
-  font-size: 15px;
+  padding: 35% 0 50% 0;
 }
-
-
-#root {
-  position:relative;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 0px;
-    grid-row-gap: 0px;
-    
-    }
-
-    .a {
-         grid-area: 2 / 2 / 5 / 4;
-         background-image: url("https://github.com/solsepulveda/DEV004-burger-queen-api-client/blob/rama-sol/bq-project/public/burgerLogin.png?raw=true");
-         border-radius: 0 0 0 25px;
-         background-size:cover;
-         margin-top:-100px;
-         margin-right: -10px;
-         /* box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.35); */
-    }
-
-    .loginForm{
-      margin-top:-100px;
-        display:table-cell;
-        vertical-align: middle;
-        grid-area: 2 / 4 / 5 / 5;
-        height: 430px;
-        align-items: center;
-        background-color: white;
-        border-radius: 0 25px 25px 0;
-        padding-top:100px;
-        place-content: center;
-        text-align: center;
-        /* box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; */
-    }
-
-    input {
+  .loginForm input {
+    border-radius: 10px;
+    text-align: center;
+    border-color: transparent;
+    background-color: rgb(224, 224, 224);
+    color: black;
     margin: 10px;
-    }
-
-    h1{
-      margin-bottom:20px;
-      background-color: transparent;
-    }
-
-    p1{
-        background-color: transparent;
-        color:red;
-        font-size:12px;
-        padding-top:-10px;
-    }
+  }
+  .loginForm button {
+    background-color: #F5A929;
+    width: 150px;
+    height: 40px;
+    box-shadow: 0px 30px 30px rgba(179, 179, 179, 0.15);
+    border-radius: 30px;
+    color: white;
+    border: none;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  .loginForm h1 {
+    background-color: transparent;
+  }
+  .loginForm p1 {
+    background-color: transparent;
+    color: red;
+    font-size: 12px;
+    padding-top: -10px;
+  }
