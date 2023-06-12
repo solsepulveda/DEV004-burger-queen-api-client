@@ -1,5 +1,6 @@
 import { useState } from "react";
-import './Login.css'
+import './Login.css';
+import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const [userEmail, setUserEmail] = useState('');
@@ -7,6 +8,7 @@ export default function Login() {
   const [emailError, setEmailError] = useState('');
   const [passError, setPassError] = useState('');
   const [resError, setResError] = useState('');
+  const navigate = useNavigate(); //se declara navigate
 
 
   const handleSubmit = (e) => {
@@ -22,9 +24,6 @@ export default function Login() {
       setPassError("Por favor, escribe una contraseña");
       return;
     }
-    
-    // mover if dentro del catch
-    
 
     fetch('http://localhost:8080/login', {
       method: 'POST',
@@ -34,20 +33,28 @@ export default function Login() {
       }
     })
       //.then(res => res.json())
-      .then(res => {
+      .then((res) => {
         if (res.ok) {
-          const jsonPromise = res.json()
-          jsonPromise.then(resJson => console.log(resJson))  
+          const jsonPromise = res.json();
+          jsonPromise.then((resJson) => {
+            //Aquí navegamos haciendo match con el rol del user
+            if (resJson.user.role === 'waitress') {
+              navigate("/waitress");
+            } else if (resJson.user.role === 'chef') {
+              navigate("/chef");
+            }
+            console.log(resJson);
+          });
         } else {
           res.text().then(text => { throw new Error(text) })
             .catch(err => {
               console.log('Error res:', err)
               if (err === 'Error: "Cannot find user"' || err === 'Error: "Incorrect password"') {
                 setResError("Correo y/o contraseña incorrecta");
+                console.log(resError);
               }
-              console.log(resError);              
+              
             })
-            
         }
       })
       .catch(err => console.log('Error:', err))
@@ -67,9 +74,9 @@ export default function Login() {
         <input
           placeholder='Escribe tu correo'
           type='email'
-          onChange={e => { 
+          onChange={e => {
             setUserEmail(e.target.value)
-          }}          
+          }}
           value={userEmail}
         />
         {emailError && (

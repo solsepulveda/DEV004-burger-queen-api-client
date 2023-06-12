@@ -15,11 +15,6 @@ export default function Waitress() {
               placeholder="ingrese nombre cliente"
               type="text"
               />
-              <label>N° Mesa </label>
-              <input
-              placeholder="ingrese n° mesa"
-              type="number"
-              />
             </div>
             <div className="buttons">
               <button>Desayuno</button>
