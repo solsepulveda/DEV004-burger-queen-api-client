@@ -1,6 +1,6 @@
 import { useState } from "react";
-import './Login.css';
 import { useNavigate } from "react-router-dom";
+import './Login.css';
 
 export default function Login() {
   const [userEmail, setUserEmail] = useState('');
@@ -9,7 +9,6 @@ export default function Login() {
   const [passError, setPassError] = useState('');
   const [resError, setResError] = useState('');
   const navigate = useNavigate(); //se declara navigate
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -50,12 +49,8 @@ export default function Login() {
         } else {
           res.text().then(text => { throw new Error(text) })
             .catch(err => {
-              console.log('Error res:', err);
-              console.log(typeof err);
-              console.dir(err);
               if (err.message === '"Cannot find user"' || err.message === '"Incorrect password"') {
                 setResError("Correo y/o contraseña incorrecta");
-                console.log(resError);
               }              
             })
         }

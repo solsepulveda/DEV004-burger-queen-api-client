@@ -53,11 +53,22 @@
   }
 
 .products {
-  grid-column: 1 / span 4;
-  grid-row: 4 / span 6;
+  grid-column: 1 / 7;
+  grid-row: 4 / 10;
   padding: 0 30px;
-  margin: 10px 0;
 }
+  .products-card {   
+    display: flex;
+    flex-direction: row;
+  }
+    .product {
+      height: 100px;
+      margin: 10px;
+    }
+
+    .product img {
+      height: 100px;
+    }
 
 .orders {
   grid-column: 7 / 10;

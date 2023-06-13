@@ -1,7 +1,7 @@
-import Login from './components/Login.jsx';
+import Login from './pages/Login.jsx';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
-import Waitress from './components/Waitress.jsx';
-import Chef from './components/Chef.jsx';
+import Waitress from './pages/Waitress.jsx';
+import Chef from './pages/Chef.jsx';
 
 export default function App() {
   return (

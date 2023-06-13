@@ -1,10 +1,15 @@
 /* import { useState } from "react"; */
+import { useState } from 'react';
 import './Waitress.css';
+import Products from '../components/products';
+import { useEffect } from 'react';
 
 export default function Waitress() {
+  const [products, setProducts] = useState([]);
   /* const [userName, setUserName] = useState(''); */
+
   const token = localStorage.getItem('token');
-  const handleClick = () => {
+  useEffect(() => {
     fetch('http://localhost:8080/products/', {
       method: 'GET',
       headers: {
@@ -13,8 +18,13 @@ export default function Waitress() {
       }
     })
       .then(resp => resp.json())
-      .then(data => console.log(data));
-  }
+      .then(data => setProducts(data))
+      .catch(error => console.log(error))
+  }, []);
+  
+  
+  const handleClick = () => {}
+    
 
   return (
     <>
@@ -35,10 +45,9 @@ export default function Waitress() {
         <button>Desayuno</button>
         <button>Almuerzo y Cena</button>
       </div>
-      <div className="products">PRODUCTOS
-        <div className="card">producto 1</div>
-        <div className="card">producto 2</div>
-        <div className="card">producto 3</div>
+      <div className='products'>
+        <h3>Productos</h3>
+        <Products products={products} />
       </div>
       <div className="orders">Pedido
         <div className="prod">orden 1</div>
