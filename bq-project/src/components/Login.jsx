@@ -42,8 +42,10 @@ export default function Login() {
           jsonPromise.then((resJson) => {
             //Aquí navegamos haciendo match con el rol del user
             if (resJson.user.role === 'waitress') {
+              localStorage.setItem('token', resJson.accessToken)
               navigate("/waitress");
             } else if (resJson.user.role === 'chef') {
+              localStorage.setItem('token', resJson.accessToken)
               navigate("/chef");
             }
             console.log(resJson);
