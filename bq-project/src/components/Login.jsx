@@ -27,7 +27,7 @@ export default function Login() {
 
     fetch('http://localhost:8080/login', {
       method: 'POST',
-      body: JSON.stringify({ email: userEmail, password: password }),
+      body: JSON.stringify({ email: userEmail, password: password, }),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -39,21 +39,24 @@ export default function Login() {
           jsonPromise.then((resJson) => {
             //Aquí navegamos haciendo match con el rol del user
             if (resJson.user.role === 'waitress') {
+              localStorage.setItem('token', resJson.accessToken)
               navigate("/waitress");
             } else if (resJson.user.role === 'chef') {
+              localStorage.setItem('token', resJson.accessToken)
               navigate("/chef");
             }
-            console.log(resJson);
+            /* console.log(resJson);  */
           });
         } else {
           res.text().then(text => { throw new Error(text) })
             .catch(err => {
-              console.log('Error res:', err)
-              if (err === 'Error: "Cannot find user"' || err === 'Error: "Incorrect password"') {
+              console.log('Error res:', err);
+              console.log(typeof err);
+              console.dir(err);
+              if (err.message === '"Cannot find user"' || err.message === '"Incorrect password"') {
                 setResError("Correo y/o contraseña incorrecta");
                 console.log(resError);
-              }
-              
+              }              
             })
         }
       })
@@ -65,12 +68,6 @@ export default function Login() {
       <section className="indexImg"></section>
       <form className="loginForm" onSubmit={handleSubmit} >
         <h1>Bienvenido</h1>
-        {resError && (
-          <p1 className="error">
-            <br />
-            {resError}
-          </p1>
-        )}
         <input
           placeholder='Escribe tu correo'
           type='email'
@@ -100,6 +97,12 @@ export default function Login() {
           </p1>
         )}
         <button>Iniciar Sesión</button>
+        {resError && (
+          <p1 className="error">
+            <br />
+            {resError}
+          </p1>
+        )}
       </form>
     </>
   );
