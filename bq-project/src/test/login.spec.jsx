@@ -1,14 +1,19 @@
 import '@testing-library/jest-dom/extend-expect'
 import { fireEvent, render } from '@testing-library/react'
 import Login from '../pages/Login'
-import { MemoryRouter} from 'react-router-dom'
+import { Route, Routes, MemoryRouter } from 'react-router-dom'
 
 describe('<Login />', () => {
   
   // simula la página
-  const component = render(<MemoryRouter initialEntries={['/']}> <Login /> </MemoryRouter>)
-
-  test.only('after clicking, error email must be shown', () => {
+  const component = render(<MemoryRouter initialEntries={['/']}>
+    <Routes>
+      <Route path="/" element={<Login />}>
+      </Route>
+    </Routes>
+  </MemoryRouter>)
+ 
+  test('after clicking, error email must be shown', () => {
     // busca elemento que contenga el texto
     const button = component.getByText('Iniciar Sesión')
     // simula el click

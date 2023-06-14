@@ -72,10 +72,10 @@ export default function Login() {
           value={userEmail}
         />
         {emailError && (
-          <p1 className="error">
+          <p className="error">
             <br />
             {emailError}
-          </p1>
+          </p>
         )}
         <input
           placeholder='Escribe tu contraseña'
@@ -86,17 +86,17 @@ export default function Login() {
           value={password}
         />
         {passError && (
-          <p1 className="error">
+          <p className="error">
             <br />
             {passError}
-          </p1>
+          </p>
         )}
         <button>Iniciar Sesión</button>
         {resError && (
-          <p1 className="error">
+          <p className="error">
             <br />
             {resError}
-          </p1>
+          </p>
         )}
       </form>
     </>

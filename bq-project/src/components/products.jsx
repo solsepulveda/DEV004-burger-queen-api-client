@@ -1,12 +1,10 @@
-import React from "react";
-
 const Products = ({products}) => {
   return (
     <div className="products-card">
     {
       products.map((item, i) => (
         <div key={i} className="product">
-          <h5>{item.name}</h5>
+          <h4>{item.name}</h4>
           <img src={item.image} />
           <p>${item.price}</p>
           <button>Agregar</button>

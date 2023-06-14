@@ -6,7 +6,8 @@ import { useEffect } from 'react';
 
 export default function Waitress() {
   const [products, setProducts] = useState([]);
-  /* const [userName, setUserName] = useState(''); */
+  const [costumerName, setCostumerrName] = useState('');
+  /* const [order, setOrder] = useState([]); */
 
   const token = localStorage.getItem('token');
   useEffect(() => {
@@ -21,10 +22,21 @@ export default function Waitress() {
       .then(data => setProducts(data))
       .catch(error => console.log(error))
   }, []);
-  
-  
-  const handleClick = () => {}
     
+  const handleClickBF = () => {
+    setProducts(products.filter((item) => item.type === "Desayuno"))
+  }
+
+  const handleClickLandD = () => {
+    setProducts(products.filter((item) => item.type === "Almuerzo"))
+  }
+
+  /* const addProduct = () => {
+
+  } */
+ /*  const handleNewOrder = () => {
+
+  } */
 
   return (
     <>
@@ -39,20 +51,21 @@ export default function Waitress() {
         <input
           placeholder="Ingrese nombre cliente"
           type="text"
+          onChange={e => setCostumerrName(e.target.value)}
         />
       </div>
-      <div className="buttons" onClick={handleClick}>
-        <button>Desayuno</button>
-        <button>Almuerzo y Cena</button>
+      <div className="buttons">
+        <button onClick={handleClickBF}>Desayuno</button>
+        <button onClick={handleClickLandD}>Almuerzo y Cena</button>
       </div>
       <div className='products'>
-        <h3>Productos</h3>
+        <h2>Productos</h2>
         <Products products={products} />
       </div>
-      <div className="orders">Pedido
-        <div className="prod">orden 1</div>
-        <div className="prod">orden 2</div>
-        <div className="prod">orden 3</div>
+      <div className="orders">
+        <h2>Pedido</h2>
+        <h4>Cliente: {costumerName}</h4>
+        
         <button>Enviar a cocina</button>
       </div>
     </>

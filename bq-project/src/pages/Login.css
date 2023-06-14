@@ -43,9 +43,9 @@
   .loginForm h1 {
     background-color: transparent;
   }
-  .loginForm p1 {
+  .loginForm p {
     background-color: transparent;
     color: red;
     font-size: 12px;
-    padding-top: -10px;
+    margin-top: -40px;
   }
