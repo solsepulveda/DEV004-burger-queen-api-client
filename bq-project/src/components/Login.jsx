@@ -1,41 +1,37 @@
 import { useState } from "react";
-import "./Login.css";
 import { useNavigate } from "react-router-dom";
+import './Login.css';
 
 export default function Login() {
-  const [userEmail, setUserEmail] = useState("");
-  const [password, setPassword] = useState("");
-  /* const [error, setError] = useState(''); */
-  const [emailError, setEmailError] = useState("");
-  const [passError, setPassError] = useState("");
+  const [userEmail, setUserEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passError, setPassError] = useState('');
+  const [resError, setResError] = useState('');
   const navigate = useNavigate(); //se declara navigate
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!password || !userEmail) {
-      setPassError("Por favor, escribe una contraseña") ||
-        setEmailError("Por favor, escribe un email");
+    if (!password && !userEmail) {
+      setPassError("Por favor, escribe una contraseña") || setEmailError("Por favor, escribe un email");
       return;
-    }
-    if (!userEmail) {
+    } else if (!userEmail) {
       setEmailError("Por favor, escribe un email");
       return;
-    }
-
-    if (!password) {
+    } else if (!password) {
       setPassError("Por favor, escribe una contraseña");
       return;
     }
 
-    fetch("http://localhost:8080/login", {
-      method: "POST",
-      body: JSON.stringify({ email: userEmail, password: password }),
+    fetch('http://localhost:8080/login', {
+      method: 'POST',
+      body: JSON.stringify({ email: userEmail, password: password, }),
       headers: {
-        "Content-Type": "application/json",
-      },
+        'Content-Type': 'application/json'
+      }
     })
+      //.then(res => res.json())
       .then((res) => {
         if (res.ok) {
           const jsonPromise = res.json();
@@ -48,51 +44,60 @@ export default function Login() {
               localStorage.setItem('token', resJson.accessToken)
               navigate("/chef");
             }
-            console.log(resJson);
+            /* console.log(resJson);  */
           });
         } else {
-          res
-            .text()
-            .then((text) => {
-              throw new Error(text);
+          res.text().then(text => { throw new Error(text) })
+            .catch(err => {
+              if (err.message === '"Cannot find user"' || err.message === '"Incorrect password"') {
+                setResError("Correo y/o contraseña incorrecta");
+              }              
             })
-            .catch((err) => console.log("Error res:", err));
         }
       })
-      .catch((err) => console.log("Error:", err));
-  };
+      .catch(err => console.log('Error:', err))
+  }
 
   return (
     <>
-      <section className="a"></section>
-      <form className="loginForm" onSubmit={handleSubmit}>
-        <h1>Bienvenida</h1>
+      <section className="indexImg"></section>
+      <form className="loginForm" onSubmit={handleSubmit} >
+        <h1>Bienvenido</h1>
         <input
-          placeholder="Escribe tu correo"
-          type="email"
-          onChange={(e) => setUserEmail(e.target.value)}
+          placeholder='Escribe tu correo'
+          type='email'
+          onChange={e => {
+            setUserEmail(e.target.value)
+          }}
           value={userEmail}
         />
         {emailError && (
-          <p1 className="error">
+          <p className="error">
             <br />
             {emailError}
-          </p1>
+          </p>
         )}
         <input
-          placeholder="Escribe tu contraseña"
-          type="password"
-          onChange={(e) => setPassword(e.target.value)}
+          placeholder='Escribe tu contraseña'
+          type='password'
+          onChange={e => {
+            setPassword(e.target.value)
+          }}
           value={password}
         />
         {passError && (
-          <p1 className="error">
+          <p className="error">
             <br />
             {passError}
-          </p1>
+          </p>
         )}
-        {/* {error && <label className="error">{error}</label>} {} */}
         <button>Iniciar Sesión</button>
+        {resError && (
+          <p className="error">
+            <br />
+            {resError}
+          </p>
+        )}
       </form>
     </>
   );

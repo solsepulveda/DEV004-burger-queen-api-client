@@ -1,2 +1,11 @@
+* {
+  font-family: 'Baloo Tammudu 2', cursive;
+}
 
-
+#root {
+  display: grid;
+  grid-template-columns: repeat(9, 100px);
+  grid-template-rows: repeat(9, 59.5px);
+  background-color: #F3F5F6;
+  padding: 10%;
+}
