@@ -9,3 +9,7 @@
   background-color: #F3F5F6;
   padding: 10%;
 }
+
+a{
+  cursor: pointer;
+}

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './Login.css';
 
+//El primer valor es el current state, el segundo es el que nos va a actualizar
 export default function Login() {
   const [userEmail, setUserEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,6 +25,7 @@ export default function Login() {
       return;
     }
 
+    //hacemos nuestra petición
     fetch('http://localhost:8080/login', {
       method: 'POST',
       body: JSON.stringify({ email: userEmail, password: password, }),
@@ -33,8 +35,11 @@ export default function Login() {
     })
       //.then(res => res.json())
       .then((res) => {
+        // Verifica si la respuesta del servidor tiene un estado "ok" (200-299)
         if (res.ok) {
+          //Convierte la respuesta en formato JSON en una promesa para acceder a los datos de la respuesta.
           const jsonPromise = res.json();
+          //Se ejecuta cuando se resuelva la promesa y se obtengan los datos de la respuesta en formato JSON.
           jsonPromise.then((resJson) => {
             //Aquí navegamos haciendo match con el rol del user
             if (resJson.user.role === 'waitress') {
@@ -47,11 +52,14 @@ export default function Login() {
             /* console.log(resJson);  */
           });
         } else {
+          // Si la respuesta del servidor no es exitosa, se convierte en texto y se genera un error para ser capturado por el siguiente catch.
           res.text().then(text => { throw new Error(text) })
             .catch(err => {
+               // Manejar los errores de respuesta del servidor y establecer el mensaje de error correspondiente
               if (err.message === '"Cannot find user"' || err.message === '"Incorrect password"') {
+                // Establece el mensaje de error correspondiente en el estado resError.
                 setResError("Correo y/o contraseña incorrecta");
-              }              
+              }
             })
         }
       })
